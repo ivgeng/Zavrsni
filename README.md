@@ -1,7 +1,5 @@
-# Flutter API Calling | Football Competitions Tables App
+# Flutter API Calling | NBA Stats App
 
-Football Competitions Tables App API Calling Using Flutter
+NBA Stats App API Calling Using Flutter
 
-## YouTube Link:
 
-[Flutter API Calling | Football Competitions Tables App](https://youtu.be/gMONiiFosic)
