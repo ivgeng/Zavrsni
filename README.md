@@ -1,5 +1,4 @@
-# Flutter API Calling | NBA Stats App
+# Basketball stats - API calling 
 
-NBA Stats App API Calling Using Flutter
 
 
