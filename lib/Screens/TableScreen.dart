@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:footballapp/Screens/chart_series.dart';
 import 'package:http/http.dart' as http;
 
 class TableScreen extends StatefulWidget {
@@ -13,8 +14,68 @@ class TableScreen extends StatefulWidget {
 
 class _TableScreenState extends State<TableScreen> {
   List _table;
+  final List<ChartSeries> data = [
+    ChartSeries(
+      year: "2011",
+      subscribers: 10000000,
+      barColor: charts.ColorUtil.fromDartColor(Colors.red),
+    ),
+    ChartSeries(
+      year: "2012",
+      subscribers: 8500000,
+      barColor: charts.ColorUtil.fromDartColor(Colors.red),
+    ),
+    ChartSeries(
+      year: "2013",
+      subscribers: 7700000,
+      barColor: charts.ColorUtil.fromDartColor(Colors.red),
+    ),
+    ChartSeries(
+      year: "2014",
+      subscribers: 7600000,
+      barColor: charts.ColorUtil.fromDartColor(Colors.red),
+    ),
+    ChartSeries(
+      year: "2015",
+      subscribers: 5500000,
+      barColor: charts.ColorUtil.fromDartColor(Colors.red),
+    ),
+  ];
+  Widget drawChart() {
+    List<charts.Series<ChartSeries, String>> series = [
+      charts.Series(
+          id: "Subscribers",
+          data: data,
+          domainFn: (ChartSeries series, _) => series.year,
+          measureFn: (ChartSeries series, _) => series.subscribers,
+          colorFn: (ChartSeries series, _) => series.barColor),
+    ];
+    return Container(
+      height: 400,
+      padding: EdgeInsets.all(1),
+      child: Card(
+        color: Colors.lightBlue,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              Text(
+                "DATA",
+                style: Theme.of(context).textTheme.title,
 
-  getTable() async {
+              ),
+              Expanded(
+                child: charts.BarChart(series, animate: true),
+
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  getData() async {
     http.Response response = await http.get(
         'https://bball-stats-api.herokuapp.com/${widget.code}');
     String body = response.body;
@@ -64,7 +125,7 @@ class _TableScreenState extends State<TableScreen> {
   @override
   void initState() {
     super.initState();
-    getTable();
+    getData();
   }
 
   @override
@@ -75,7 +136,7 @@ class _TableScreenState extends State<TableScreen> {
             child: Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  Color(0xFFe70066),
+                  Color(0xffff9800),
                 ),
               ),
             ),
@@ -85,8 +146,8 @@ class _TableScreenState extends State<TableScreen> {
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                 colors: [
-                  const Color(0xffe84860),
-                  const Color(0xffe70066),
+                  const Color(0xff03a9f4),
+                  const Color(0xff0097A7),
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(0.0, 1.0),
@@ -149,9 +210,11 @@ class _TableScreenState extends State<TableScreen> {
                     height: 10,
                   ),
                   buildTable(),
+                  drawChart(),
                 ],
               ),
             ),
     );
+
   }
 }
