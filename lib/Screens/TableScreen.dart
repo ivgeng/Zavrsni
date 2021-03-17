@@ -143,17 +143,17 @@ class _TableScreenState extends State<TableScreen> {
           )
         : Scaffold(
             body: Container(
-              decoration: BoxDecoration(
+              color: Colors.lightBlue,
+              /*decoration: BoxDecoration(
                   gradient: LinearGradient(
                 colors: [
                   const Color(0xff03a9f4),
-                  const Color(0xff0097A7),
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(0.0, 1.0),
                 stops: [0.0, 1.0],
                 tileMode: TileMode.clamp,
-              )),
+              )),*/
               child: ListView(
                 physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
