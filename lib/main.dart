@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:footballapp/Screens/HomeScreen.dart';
+import 'package:basketballstats/Screens/HomeScreen.dart';
+import 'package:splashscreen/splashscreen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -10,9 +12,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: HomeScreen(),
-    );
+      home:SplashScreen(
+        seconds: 15,
+        backgroundColor: Colors.white,
+        image: Image.asset('assets/test4.gif') ,
+        loaderColor: Colors.blue,
+        photoSize: 150.0 ,
+        navigateAfterSeconds: HomeScreen(),
+    )
+    ) ;
   }
 }
+

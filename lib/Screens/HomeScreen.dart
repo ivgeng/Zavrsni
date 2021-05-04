@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:footballapp/Screens/TableScreen.dart';
-import 'package:footballapp/Widgets/LeagueContainer.dart';
+import 'package:basketballstats/Screens/TeamScreen.dart';
+import 'package:basketballstats/Widgets/TeamContainer.dart';
+//import 'package:awesome_package/awesome_package.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -9,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  // ignore: non_constant_identifier_names
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -16,8 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              const Color(0xffe84860),
-              const Color(0xffe70066),
+              const Color(0xff29b6f6),
+              const Color(0xff29b6f6),
             ],
             begin: const FractionalOffset(0.0, 0.0),
             end: const FractionalOffset(0.0, 1.0),
@@ -32,11 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 20,
                 ),
                 Text(
-                  'Teams',
+                  'PACIFIC DIVISION',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.white ,
+                    fontSize: 30,
+                    fontFamily: 'Raleway',
+                    package: 'awesome_package',
                   ),
                 ),
                 SizedBox(
@@ -49,62 +54,52 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisSpacing: 15,
                   children: [
                     GestureDetector(
-                      child: LeagueContainer(image: 'assets/chibulls.png'),
+                      child: TeamContainer(image: 'assets/clippers.png'),
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TableScreen(code: 'CHI'),
+                              builder: (context) => TeamScreen(code: 'CLI'),
                             ));
                       },
                     ),
                     GestureDetector(
-                      child: LeagueContainer(image: 'assets/lalakers.png'),
+                      child: TeamContainer(image: 'assets/lakers.png'),
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TableScreen(code: 'PD'),
+                              builder: (context) => TeamScreen(code: 'LAL'),
                             ));
                       },
                     ),
                     GestureDetector(
-                      child: LeagueContainer(image: 'assets/barca.png'),
+                      child: TeamContainer(image: 'assets/suns.png'),
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TableScreen(code: 'BL1'),
+                              builder: (context) => TeamScreen(code: 'PHX'),
                             ));
                       },
                     ),
                     GestureDetector(
-                      child: LeagueContainer(image: 'assets/cska.png'),
+                      child: TeamContainer(image: 'assets/warriors.png'),
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TableScreen(code: 'SA'),
+                              builder: (context) => TeamScreen(code: 'GSW'),
                             ));
                       },
                     ),
                     GestureDetector(
-                      child: LeagueContainer(image: 'assets/cibona.png'),
+                      child: TeamContainer(image: 'assets/kings.png'),
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TableScreen(code: 'FL1'),
-                            ));
-                      },
-                    ),
-                    GestureDetector(
-                      child: LeagueContainer(image: 'assets/zadar.png'),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TableScreen(code: 'PPL'),
+                              builder: (context) => TeamScreen(code: 'SAC'),
                             ));
                       },
                     ),

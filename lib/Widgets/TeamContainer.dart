@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class LeagueContainer extends StatelessWidget {
+class TeamContainer extends StatelessWidget {
   final String image;
 
-  const LeagueContainer({Key key, this.image}) : super(key: key);
+  const TeamContainer({Key key, this.image}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
