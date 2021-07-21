@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:basketballstats/Widgets/ChartData.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:basketballstats/Widgets/ChartData.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:http/http.dart' as http;
@@ -48,10 +48,10 @@ class _TeamScreenState extends State<TeamScreen> with SingleTickerProviderStateM
     return _chartdata;
   }
 
-  _generateData() async {
+  _generateChartData() async {
     Future<List> futlist = getData();
     List chdata = await futlist;
-    print(chdata);
+    //print(chdata);
 
     var data1 = [
       new BarSeries("2015-16",  chdata[4],  charts.ColorUtil.fromDartColor(Colors.red)),
@@ -65,7 +65,7 @@ class _TeamScreenState extends State<TeamScreen> with SingleTickerProviderStateM
         domainFn: (BarSeries barseries, _) => barseries.season,
         measureFn: (BarSeries barseries, _) => num.parse(barseries.piedata),
         colorFn: (BarSeries barseries, _) => barseries.barColor,
-        id: "piedata",
+        id: "barchart",
         data: data1,
       ),
     );
@@ -73,53 +73,34 @@ class _TeamScreenState extends State<TeamScreen> with SingleTickerProviderStateM
     var piedata = [
       new PieSeries('Win (%)', chdata[5]['winper'], charts.ColorUtil.fromDartColor(Colors.red)),
       new PieSeries('Loss (%)', chdata[5]['lossper'], charts.ColorUtil.fromDartColor(Colors.grey)),
-
     ];
+
     _seriesPieData.add(
       charts.Series(
 
         domainFn: (PieSeries task, _) => task.task,
         measureFn: (PieSeries task, _) => task.taskvalue,
         colorFn: (PieSeries task, _) => task.colorval,
-        id: 'Air Pollution',
+        id: 'piechart',
         data: piedata,
         labelAccessorFn: (PieSeries row, _) => '${row.taskvalue}',
       ),
     );
 
     var linedata = [
-      new LineSeries(0, chdata[6]['15-163pm']),
-      new LineSeries(1, chdata[6]['16-173pm']),
-      new LineSeries(2, chdata[6]['17-183pm']),
-      new LineSeries(3, chdata[6]['18-193pm']),
-      new LineSeries(4, chdata[6]['19-203pm']),
+      new LineSeries(0, chdata[6]['15-16efg']),
+      new LineSeries(1, chdata[6]['16-17efg']),
+      new LineSeries(2, chdata[6]['17-18efg']),
+      new LineSeries(3, chdata[6]['18-19efg']),
+      new LineSeries(4, chdata[6]['19-20efg']),
 
     ];
-    var linedata1 = [
-      new LineSeries(0, chdata[6]['15-163pa']),
-      new LineSeries(1, chdata[6]['16-173pa']),
-      new LineSeries(2, chdata[6]['17-183pa']),
-      new LineSeries(3, chdata[6]['18-193pa']),
-      new LineSeries(4, chdata[6]['19-203pa']),
-
-    ];
-
 
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xfff44336)),
-        id: '',
+        id: 'linechart',
         data: linedata,
-       domainFn: (LineSeries sales, _) => sales.yearval,
-        measureFn: (LineSeries sales, _) => sales.salesval,
-        labelAccessorFn: (LineSeries row, _) => '${row.yearval}',
-      ),
-    );
-    _seriesLineData.add(
-      charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffeeff41)),
-        id: '',
-        data: linedata1,
        domainFn: (LineSeries sales, _) => sales.yearval,
         measureFn: (LineSeries sales, _) => sales.salesval,
         labelAccessorFn: (LineSeries row, _) => '${row.yearval}',
@@ -127,69 +108,6 @@ class _TeamScreenState extends State<TeamScreen> with SingleTickerProviderStateM
     );
 
   }
- /* Widget drawChart() {
-    final List<ChartSeries> data = [
-      ChartSeries(
-        season: "2015-16",
-        piedata: _chartdata[4],
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-      ChartSeries(
-        season: "2016-17",
-        piedata: _chartdata[3],
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-      ChartSeries(
-        season: "2017-18",
-        piedata: _chartdata[2],
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-      ChartSeries(
-        season: "2018-19",
-        piedata: _chartdata[1],
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-      ChartSeries(
-        season: "2019-20",
-        piedata: _chartdata[0],
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-    ];
-    List<charts.Series<ChartSeries, String>> series = [
-      charts.Series(
-          id: "piedata",
-          data: data,
-          domainFn: (ChartSeries series, _) => series.season,
-          measureFn: (ChartSeries series, _) => num.parse(series.piedata) ,
-          colorFn: (ChartSeries series, _) => series.barColor),
-    ];
-    return Container(
-      height: 500,
-      padding: EdgeInsets.all(20),
-      child: Card(
-        color: Colors.lightBlue,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                "PLAYER  IMPACT  ESTIMATE",
-                style: TextStyle(
-                  color: Colors.white ,
-                  fontSize: 15,
-                  fontFamily: 'Raleway',
-                  package: 'awesome_package',
-                )
-              ),
-              Expanded(
-                child: charts.BarChart(series, animate: true),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }*/
 
   Widget buildTable() {
     List<Widget> row = [];
@@ -249,11 +167,13 @@ class _TeamScreenState extends State<TeamScreen> with SingleTickerProviderStateM
       children: row,
     );
   }
+
   _handleTabSelection() {
     if (_tabController.indexIsChanging) {
       setState(() {});
     }
   }
+
   @override
   void  initState  () {
     super.initState();
@@ -262,68 +182,19 @@ class _TeamScreenState extends State<TeamScreen> with SingleTickerProviderStateM
     _seriesBarData = List<charts.Series<BarSeries, String>>();
     _seriesPieData = List<charts.Series<PieSeries, String>>();
     _seriesLineData = List<charts.Series<LineSeries, int>>();
-    _generateData();
+    _generateChartData();
     getData();
   }
-  final customTickFormatter =
-  charts.BasicNumericTickFormatterSpec((num value) {
-    if (value == 0) {
-      return "2015-16";
-    } else if (value == 1) {
-      return "2016-17";
-    } else if (value == 2) {
-      return "2017-18";
-    } else if (value == 3) {
-      return "2018-19";
-    } else if (value == 4) {
-      return "2019-20";
-    }
-  });
 
   @override
   Widget build(BuildContext context) {
-   /* final List<ChartSeries> data = [
-      ChartSeries(
-        season: "2015-16",
-        piedata: _chartdata[4],
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-      ChartSeries(
-        season: "2016-17",
-        piedata: _chartdata[3],
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-      ChartSeries(
-        season: "2017-18",
-        piedata: _chartdata[2],
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-      ChartSeries(
-        season: "2018-19",
-        piedata: _chartdata[1],
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-      ChartSeries(
-        season: "2019-20",
-        piedata: _chartdata[0],
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-    ];
-    List<charts.Series<ChartSeries, String>> series = [
-      charts.Series(
-          id: "piedata",
-          data: data,
-          domainFn: (ChartSeries series, _) => series.season,
-          measureFn: (ChartSeries series, _) => num.parse(series.piedata) ,
-          colorFn: (ChartSeries series, _) => series.barColor),
-    ];*/
     return _table  == null
         ? Container(
             color: Colors.white,
             child: Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  Color(0xfff44336),
+                  Color(0xff2196f3),
                 ),
               ),
             ),
@@ -427,7 +298,7 @@ class _TeamScreenState extends State<TeamScreen> with SingleTickerProviderStateM
                                   child: Column(
                                       children: <Widget>[
                                            Text(
-                                            "PLAYER  IMPACT  ESTIMATE",
+                                            "Player Impact Estimate",
                                             style: TextStyle(
                                           color: Colors.white ,
                                           fontSize: 15,
@@ -451,7 +322,7 @@ class _TeamScreenState extends State<TeamScreen> with SingleTickerProviderStateM
                         child: Column(
                         children: <Widget>[
                           Text(
-                            'All-time Win/Loss ',style: TextStyle(fontSize: 24.0,color:Colors.white, fontFamily: 'Raleway',package:'awesome_package'),),
+                            'All Time Win-Loss ',style: TextStyle(fontSize: 24.0,color:Colors.white, fontFamily: 'Raleway',package:'awesome_package'),),
                           SizedBox(height: 10.0,),
                           Expanded(
                             child: charts.PieChart(
@@ -486,7 +357,7 @@ class _TeamScreenState extends State<TeamScreen> with SingleTickerProviderStateM
                      child: Column(
                        children: <Widget>[
                           Text(
-                            '3PT Attempts - 3PT Made (%)',style: TextStyle(fontSize: 24.0,color:Colors.white, fontFamily: 'Raleway',package:'awesome_package'),),
+                            'Effective Field Goal Percentage',style: TextStyle(fontSize: 24.0,color:Colors.white, fontFamily: 'Raleway',package:'awesome_package'),),
                           Expanded(
                             child: charts.LineChart(
                                 _seriesLineData,
@@ -504,13 +375,12 @@ class _TeamScreenState extends State<TeamScreen> with SingleTickerProviderStateM
                                   tickFormatterSpec: customTickFormatter,
                                 ),
                                 behaviors: [
-                                  new charts.ChartTitle('Years',
+                                  new charts.ChartTitle('Seasons',
                                       behaviorPosition: charts.BehaviorPosition.bottom,
                                       titleOutsideJustification:charts.OutsideJustification.middleDrawArea),
                                   new charts.ChartTitle('Percentage',
                                       behaviorPosition: charts.BehaviorPosition.start,
                                       titleOutsideJustification: charts.OutsideJustification.middleDrawArea),
-
                                 ]
                             ),
                           ),

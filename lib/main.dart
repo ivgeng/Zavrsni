@@ -13,11 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home:SplashScreen(
-        seconds: 15,
+        seconds: 8,
         backgroundColor: Colors.white,
         image: Image.asset('assets/test4.gif') ,
-        loaderColor: Colors.blue,
-        photoSize: 150.0 ,
+        loaderColor: Colors.white,
+        photoSize: 195.0,
         navigateAfterSeconds: HomeScreen(),
     )
     ) ;

@@ -1,7 +1,4 @@
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-
 
 class BarSeries {
   String season;
@@ -25,4 +22,24 @@ class  LineSeries {
 
   LineSeries(this.yearval, this.salesval);
 }
+
+final customTickFormatter =
+// ignore: missing_return
+charts.BasicNumericTickFormatterSpec((num value) {
+  if (value == 0) {
+    return "2015-16";
+  }
+  else if (value == 1) {
+    return "2016-17";
+  }
+  else if (value == 2) {
+    return "2017-18";
+  }
+  else if (value == 3) {
+    return "2018-19";
+  }
+  else if (value == 4) {
+    return "2019-20";
+  }
+});
 

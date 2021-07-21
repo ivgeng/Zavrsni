@@ -10,8 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
-  // ignore: non_constant_identifier_names
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
